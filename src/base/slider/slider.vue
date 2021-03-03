@@ -5,7 +5,7 @@
       </slot>
     </div>
     <div class="dots">
-      <span class="dot" :class="{active: currentPageIndex === index}" v-for="(item,index) in dots" :key="index">{{item}}</span>
+      <span class="dot" :class="{active: currentPageIndex === index}" v-for="(item,index) in dots" :key="index"></span>
     </div>
   </div>
 </template>
@@ -36,6 +36,7 @@ export default {
     }
   },
   mounted() {
+    // 初始化slider组件之前需要先把宽度计算出来, 设置20毫秒定时器来确保dom渲染完成
     setTimeout(() => {
       this._setSliderWidth()
       this._initSlder()
@@ -46,6 +47,7 @@ export default {
       }
     }, 20)
 
+    // 浏览器大小改变后，需要重新计算宽度
     window.addEventListener('resize', () => {
       if (!this.slider) { return }
       this._setSliderWidth(true)
@@ -58,6 +60,7 @@ export default {
     _setSliderWidth(isResize) {
       this.children = this.$refs.sliderGroup.children
 
+      // 获取sliderGroup所有子节点加起来的宽度
       let width = 0
       let sliderWidth = this.$refs.slider.clientWidth
       for (let i = 0; i < this.children.length; i++) {
@@ -83,7 +86,6 @@ export default {
         snapThreshold: 0.3,
         snapSpeed: 400
       })
-
       this.slider.on('scrollEnd', () => {
         let pageIndex = this.slider.getCurrentPage().pageX
 
@@ -115,7 +117,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  @import '~common/stylus/variable'
+@import '~common/stylus/variable'
 
 .slider
   min-height: 1px
@@ -128,11 +130,6 @@ export default {
       box-sizing: border-box
       overflow: hidden
       text-align: center
-      a
-        display: block
-        width: 100%
-        overflow: hidden
-        text-decoration: none
       img
         display: block
         width: 100%

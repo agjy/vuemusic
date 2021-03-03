@@ -1,6 +1,7 @@
 <template>
   <div class="recommend">
     <scroll ref="scroll" class="recommend-content" :data="discList">
+      <!-- scroll只有第一个子元素会滚动，所以用一个div进行包裹 -->
       <div>
         <div v-if="recommends.length" class="slider-wrapper">
           <div class="slider-content">
@@ -62,8 +63,6 @@ export default {
       getRecommend().then(res => {
         if (res.code === ERR_OK) {
           this.recommends = res.banners
-        } else {
-          console.log('获取轮播图失败')
         }
       })
     },
@@ -71,6 +70,9 @@ export default {
       getDiscList().then(res => {
         if (res.code === ERR_OK) {
           this.discList = res.playlists
+          this.discList.forEach(item => {
+            item.coverImgUrl += '?imageView=1&thumbnail=100x0'
+          })
         }
       })
     },
