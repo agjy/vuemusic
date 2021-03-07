@@ -237,7 +237,6 @@ export default {
       this.setPlaylist(list)
     },
     resetCurrentIndex(list) {
-      console.log(list)
       let index = list.findIndex((item) => {
         return item.id === this.currentSong.id
       })
@@ -330,7 +329,8 @@ export default {
     })
   },
   watch: {
-    currentSong() {
+    currentSong(newSong, oldSong) {
+      if (newSong.id === oldSong.id) { return }
       this.currentSong.getSongUrl().then(url => {
         this.$refs.audio.src = url
         this.$refs.audio.play()
