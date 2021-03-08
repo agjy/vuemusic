@@ -30,6 +30,9 @@
                 <p ref="lyricLine" class="text" :class="{'current': currentLineNum === index}"
                   v-for="(line, index) in currentLyric.lines" :key="index">{{line.txt}}</p>
               </div>
+              <div v-else>
+                <p ref="lyricLine" class="text">暂无歌词</p>
+              </div>
             </div>
           </scroll>
         </div>
@@ -250,7 +253,7 @@ export default {
         }
       }).catch(() => {
         this.currentLyric = null
-        this.palyingLyric = ''
+        this.palyingLyric = '暂无歌词'
         this.currentLineNum = 0
       })
     },
@@ -279,7 +282,6 @@ export default {
       const left = this.currentShow === 'cd' ? 0 : -window.innerWidth
       const offsetWidth = Math.min(0, Math.max(-window.innerWidth, left + deltaX))
       this.touch.percent = Math.abs(offsetWidth / window.innerWidth)
-      console.log(this.touch.percent)
       this.$refs.lyricList.$el.style[transform] = `translate3d(${offsetWidth}px, 0, 0)`
       this.$refs.lyricList.$el.style[transitionDuration] = '0ms'
       this.$refs.cd.style.opacity = 1 - this.touch.percent

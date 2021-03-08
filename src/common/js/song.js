@@ -33,7 +33,7 @@ export default class Song {
     }
     return new Promise((resolve, reject) => {
       getLyric(this.id).then(res => {
-        if (res.code === ERR_OK) {
+        if (res.code === ERR_OK && res.lrc) {
           this.lyric = res.lrc.lyric
           resolve(this.lyric)
         } else {

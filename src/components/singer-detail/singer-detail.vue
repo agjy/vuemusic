@@ -35,6 +35,7 @@ export default {
     _getDetail(singerId) {
       if (!singerId) {
         this.$router.push('/singer')
+        return
       }
       getSingerDetail(singerId).then((res) => {
         if (res.code === ERR_OK) {
