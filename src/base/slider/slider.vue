@@ -53,7 +53,13 @@ export default {
       this._setSliderWidth(true)
     })
   },
-  destroyed() {
+  activated() {
+    clearTimeout(this.timer)
+    if (this.autoPlay) {
+      this._play()
+    }
+  },
+  deactivated() {
     clearTimeout(this.timer)
   },
   methods: {

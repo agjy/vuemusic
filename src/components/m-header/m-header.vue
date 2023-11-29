@@ -1,7 +1,10 @@
 <template>
   <div class="m-header">
+    <router-link to="/user" class="mine" tag="div">
+      <i class="icon-mine"></i>
+    </router-link>
     <div class="icon"></div>
-    <h1 class="text">Net Music</h1>
+    <h1 class="text">Vue Music</h1>
   </div>
 </template>
 
@@ -32,7 +35,7 @@
     .mine
       position: absolute
       top: 0
-      right: 0
+      left: 0
       .icon-mine
         display: block
         padding: 12px

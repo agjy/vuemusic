@@ -45,9 +45,9 @@ export default {
     },
     _normalizeSongs(list) {
       let ret = []
-      list.forEach((item) => {
-        if (item.id && item.al.id) {
-          ret.push(createSong(item))
+      list.forEach((musicData) => {
+        if (musicData.id && musicData.al.id) {
+          ret.push(createSong(musicData))
         }
       })
       return ret
